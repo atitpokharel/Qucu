@@ -9,7 +9,7 @@ import time
 def run_gpu(n_qubits, n_layers, n_runs=5):
     sim = QuCu(n_qubits)
     kernel_times = []; wall_times = []; probs = None
-    for run in range(n_runs):
+    for run in range(n_runs + 5):
         sim.reset(); sim.kernel_time_ms = 0.0
         wall_start = time.perf_counter()
         for _ in range(n_layers):

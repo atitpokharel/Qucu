@@ -7,24 +7,25 @@ import numpy as np
 class QuCu:
     def __init__(self, n_qubits):
         self.n_qubits       = n_qubits
-        self.state          = qucu.zeros(n_qubits)
+        self._sim           = qucu.QuCuSim(n_qubits) # persistent device state
         self.kernel_time_ms = 0.0
 
     def reset(self):
-        self.state          = qucu.zeros(self.n_qubits) #reset to |00...0>
+        self._sim.reset()# single H2D transfer
         self.kernel_time_ms = 0.0
+        self._sim.kernel_time_ms = 0.0
 
     def rx(self, target, theta):
-        self.kernel_time_ms += qucu.rx(self.state, self.n_qubits, target, theta)
+        self.kernel_time_ms += self._sim.rx(target, theta)
 
     def ry(self, target, theta):
-        self.kernel_time_ms += qucu.ry(self.state, self.n_qubits, target, theta)
+        self.kernel_time_ms += self._sim.ry(target, theta)
 
     def rz(self, target, theta):
-        self.kernel_time_ms += qucu.rz(self.state, self.n_qubits, target, theta)
+        self.kernel_time_ms += self._sim.rz(target, theta)
 
     def cnot(self, control, target):
-        self.kernel_time_ms += qucu.cnot(self.state, self.n_qubits, control, target)
+        self.kernel_time_ms += self._sim.cnot(control, target)
 
     def measure(self):
-        return qucu.measure(self.state)
+        return self._sim.measure()# single D2H transfer

@@ -72,3 +72,10 @@ Thumbs.db
 *.log
 core
 core.*
+
+# Nsight Profiling and analysis artifacts
+*.nsys-rep
+*.sqlite
+*.ncu-rep
+*.pdf
+*.png

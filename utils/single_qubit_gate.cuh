@@ -3,6 +3,16 @@
 #include <cuComplex.h>
 #include <math.h>
 
+inline __host__ __device__ cuDoubleComplex operator+(cuDoubleComplex a, cuDoubleComplex b) 
+{
+    return cuCadd(a, b);
+}
+
+inline __host__ __device__ cuDoubleComplex operator*(cuDoubleComplex a, cuDoubleComplex b) 
+{
+    return cuCmul(a, b);
+}
+
 __global__ void single_qubit_gate_kernel(cuDoubleComplex* state, int n_qubits, int target,
                                          cuDoubleComplex U00, cuDoubleComplex U01,
                                          cuDoubleComplex U10, cuDoubleComplex U11){
@@ -19,8 +29,8 @@ __global__ void single_qubit_gate_kernel(cuDoubleComplex* state, int n_qubits, i
     cuDoubleComplex a0 = state[i0]; //amplitude for target bit = 0
     cuDoubleComplex a1 = state[i1]; //amplitude for target bit = 1
 
-    state[i0] = cuCadd(cuCmul(U00, a0), cuCmul(U01, a1)); //update pair
-    state[i1] = cuCadd(cuCmul(U10, a0), cuCmul(U11, a1));
+    state[i0] = U00 * a0 + U01 * a1; //update pair
+    state[i1] = U10 * a0 + U11 * a1;
 }
 
 // gate matrix helpers

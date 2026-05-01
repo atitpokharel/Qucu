@@ -22,7 +22,7 @@ def run_gpu(n_qubits, n_layers, n_runs=5):
         if run < 5: continue  #  warmup
         kernel_times.append(sim.kernel_time_ms)
         wall_times.append(wall_ms)
-        probs = list(sim.measure())
+        probs = list(sim.ExpVal_Z())
     return np.mean(kernel_times), np.mean(wall_times), probs
 
 def run_cpu(n_qubits, n_layers):

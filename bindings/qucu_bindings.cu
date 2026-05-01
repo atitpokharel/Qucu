@@ -71,7 +71,7 @@ struct QuCuSim {
         return ms;
     }
 
-    py::array_t<double> measure() {
+    py::array_t<double> ExpVal_Z() {
         // single D2H transfer only at measurement
         std::vector<cuDoubleComplex> h_state(dim);
         cudaMemcpy(h_state.data(), d_state, size, cudaMemcpyDeviceToHost);
@@ -118,6 +118,6 @@ PYBIND11_MODULE(qucu, m) {
         .def("ry",       &QuCuSim::apply_ry)
         .def("rz",       &QuCuSim::apply_rz)
         .def("cnot",     &QuCuSim::apply_cnot)
-        .def("measure",  &QuCuSim::measure)
+        .def("ExpVal_Z", &QuCuSim::ExpVal_Z)
         .def_readwrite("kernel_time_ms", &QuCuSim::kernel_time_ms);
 }

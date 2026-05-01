@@ -1,4 +1,7 @@
-# build / compile outputs
+# Keep source and essential project files in git.
+# Ignore generated artifacts, local tooling state, and analysis outputs.
+
+# Build outputs and native binaries
 build/
 cmake-build-*/
 out/
@@ -12,21 +15,19 @@ dist/
 *.dll
 *.out
 *.exe
+single_gate
+single_qubit_gate
+cnot_gate
+vqc
 
-# nvcc / CUDA intermediates
+# CUDA / compiler intermediates
 *.ptx
 *.cubin
 *.fatbin
 *.i
 *.ii
 
-# project binaries (from nvcc -o ...)
-single_gate
-single_qubit_gate
-cnot_gate
-vqc
-
-# CMake (if added later)
+# CMake and build-system byproducts
 CMakeCache.txt
 CMakeFiles/
 cmake_install.cmake
@@ -36,7 +37,7 @@ compile_commands.json
 CTestTestfile.cmake
 _deps/
 
-# Python / pybind11 extension (setup.py)
+# Python caches and packaging artifacts
 __pycache__/
 *.py[cod]
 $py.class
@@ -49,17 +50,26 @@ venv/
 *.egg
 pip-wheel-metadata/
 
-# Jupyter
+# Notebook checkpoints and generated analysis/report assets
 .ipynb_checkpoints/
+*.pdf
+*.png
+*.jpg
+*.jpeg
 
-# tooling (optional local dev)
+# Profiling outputs
+*.nsys-rep
+*.sqlite
+*.ncu-rep
+
+# Tool caches
 .mypy_cache/
 .pytest_cache/
 .ruff_cache/
 .coverage
 htmlcov/
 
-# editor / OS
+# Editor / OS noise
 .vscode/
 .idea/
 *.swp
@@ -68,14 +78,7 @@ htmlcov/
 .DS_Store
 Thumbs.db
 
-# logs / dumps
+# Logs and crash dumps
 *.log
 core
 core.*
-
-# Nsight Profiling and analysis artifacts
-*.nsys-rep
-*.sqlite
-*.ncu-rep
-*.pdf
-*.png

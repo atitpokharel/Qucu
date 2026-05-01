@@ -27,5 +27,5 @@ class QuCu:
     def cnot(self, control, target):
         self.kernel_time_ms += self._sim.cnot(control, target)
 
-    def measure(self):
-        return self._sim.measure()# single D2H transfer
+    def ExpVal_Z(self):
+        return self._sim.ExpVal_Z()# single D2H transfer

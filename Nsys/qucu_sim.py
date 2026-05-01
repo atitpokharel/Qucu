@@ -1,5 +1,9 @@
+from pathlib import Path
 import sys
-sys.path.append("/home/ap1284@DS.UAH.edu/Atit/GPU_Computing/Qucu")
+
+ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
 
 import qucu
 import numpy as np
